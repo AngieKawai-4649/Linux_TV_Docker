@@ -1,7 +1,7 @@
 # Linux (主にLinuxMint ubuntu系でTVを視聴／録画する為のインストールガイド Docker編)
 
 ## 【Dockerとは】
-一般的な仮想環境はマシン上のOSとは別にゲストOSを構築し、ホストOSと独立した形で動作  
+一般的な仮想環境はマシン上のOSとは別にゲストOSを構築し、ホストOSと独立した形で動作   
 DockerはホストOSのカーネルを使用し、ファイルシステムを仮想環境とする  
 Docker上で動くプロセスはホストOSカーネル下で動くので動作が軽く複数の仮想環境を同時に起動することができる  
 ホストOSのファイルシステムは使用せずにOS、ミドルウエア等のパッケージ、アプリケーションは全てゲストOSのファイルシステム上で構築する  
@@ -75,4 +75,107 @@ Docker上で動くプロセスはホストOSカーネル下で動くので動作
             $ sudo systemctl start docker
          確認
             $ docker info | grep "Docker Root Dir"
+
+## 【Dockerイメージセットアップ】
+LinuxでTVを視聴／録画する為に以下のイメージを作成する
+- mariadb
+- mirakurun
+- EPGStashon
+
+イメージを作成する為にDockerファイルを作成する  
+ここでは以下のディレクトリ構成で環境構築する例で記述する  
+
+        /opt/TV_app/docker/
+                      |--/mariadb                              docker mariadb root
+                      |--/Mirakurun                            docker mirakurun root
+                      |--/docker-mirakurun-epgstation          docker compose root
+                                           |--epgstation       docker epgstation root
+
+    1. mariadb
+      公式イメージをベースとして文字セットをutfmb4を組み込んだオリジナルイメージを作成する
+      ディレクトリ構成
+        /mariadb              docker mariadb root
+            |--/db
+            |--/conf          configファイル格納
+            |--/mariadb_data  データベースデータ
+
+1.1 Dockerファイルの作成
+    conf ディレクトリに文字セットutfmb4を組み込んだ50-server.cnf, 50-client.cnf を配置する
+    docker mariadb root ディレクトリにDockerfile_mariadb を作成する
+    1.4でコンテナ起動する場合はdocker-compose.ymlを作成する
+
+    [Dockerfile_mariadb 内容例]
+　　　　FROM mariadb:10.11.8
+
+　　　　RUN apt-get update && \
+　　　　apt-get upgrade -y
+
+　　　　#COPY ./db/conf/mariadb.cnf /etc/mysql/mariadb.cnf
+　　　　COPY ./db/conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
+　　　　COPY ./db/conf/50-client.cnf /etc/mysql/mariadb.conf.d/50-client.cnf
+
+1.2 Dockerイメージの作成
+       $ cd /opt/TV_app/docker/mariadb
+       $ docker image build -t mariadb:10.11.8.mod -f Dockerfile_mariadb .
+       -t TAGを指定 上記例ではRIPOSITORY mariadb TAG 10.11.8.mod となる
+       -f Dockerファイル名を指定
+
+1.3 確認
+      $ docker image ls
+
+以下は任意
+
+1.4 コンテナ起動
+    $ docker run -e MYSQL_ROOT_PASSWORD=root mariadb:10.11.8.mod
+      (-eは環境変数の設定、起動するリポジトリ名:タグ  またはイメージIDを指定)
+    docker-compose.ymlを使用する場合は
+    $ cd /opt/TV_app/docker/mariadb
+    $ docker compose up -d
+
+    [docker-compose.yml 内容例]
+      version: '3'
+      services:
+          mariadb:
+              image: mariadb:10.11.8.mod
+              container_name: mariadb
+              ports:
+                  - "7777:3306"
+              volumes:
+                  - ./db/mariadb_data:/var/lib/mysql
+#             restart: always
+              environment:
+                  MYSQL_ROOT_PASSWORD: root
+                  TZ: "Asia/Tokyo"
+#             command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --performance-schema=false --expire_logs_days=1 # for mariadb
+      volumes:
+          mariadb_data:
+          driver: local
+
+
+
+1.5 コンテナにログイン
+     コンテナ起動中にホスト側ターミナルでmariadbにログオンする
+     コンテナにログイン
+      $ docker exec -it コンテナID bash
+        (-i:入力をホストと共有 -t:出力をホストと共有) 
+    DBにログオン
+      # mysql -u root -p
+       文字セットの確認
+        MariaDB [(none)]> show variables like "chara%";
+1.6 コンテナの停止/削除
+    $ docker stop コンテナID
+    $ docker rm コンテナID
+1.7 ホストとポートマッピングして起動
+    ホスト側でmariadbをデフォルトポート(3306)で起動しているとポートがかち合ってしまうので
+    ポートマッピングして起動する
+    $ docker run -e MYSQL_ROOT_PASSWORD=root -p 7777:3306 mariadb:10.6
+     (7777:ホスト側のポート 3306:コンテナ側のポート）
+1.8 ホストからDocker mariadbにログオン
+    $ mysql -P 7777 -u root -p
+    文字セットの確認
+    MariaDB [(none)]> show variables like "chara%";
+1.9 データベースデータの削除
+    コンテナを削除した時はデータベースデータを全て削除する
+    また、他のコンテナで起動する場合もデータベースデータを全て削除しておく
+
 
