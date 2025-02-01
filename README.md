@@ -185,10 +185,54 @@ LinuxでTVを視聴／録画する為に以下のイメージを作成する
       ディレクトリ構成
       /Mirakurun          root
           |--docker       dockerファイル等
-          |--tuner_app    チューナーアプリ、softcas ソースコード
+          |--tuner_app    チューナーアプリ、arib25 ソースコード
           |--bind
                |--run      /var/runにbind
                |--opt      /optにbind
                |--config   /app-configにbind
                |--data     /app-dataにbind
-       
+
+    2.1 ソースファイル等環境取得
+        $ cd /opt/TV_app/docker
+        $ git clone https://github.com/Chinachu/Mirakurun.git
+    2.1 イメージ内でbuildする為、ソースファイルを取得
+        $ cd /opt/TV_app/tuner_app
+         [B25デコーダー arib25]
+           $ git clone https://github.com/AngieKawai-4649/libarib25.git
+         [慶安 KTV-FSUSB2 2期 recfsusb2n]
+           $ git clone https://github.com/AngieKawai-4649/recfsusb2n.git
+         [さんぱくん外出 recsanpakun]
+           $ git clone https://github.com/AngieKawai-4649/recsanpakun.git
+         [dvb adapter tv-tuner recdvb]
+           $ git clone https://github.com/AngieKawai-4649/recdvb.git
+
+        ※ Dockerfileで直接gitを実行してイメージ内にソースコードを取り込むことも可能
+
+    2.2 Dockerfile編集
+        オリジナルDockerfile内パッケージインストールの箇所に
+        git       イメージ作成時にgitでファイルを取得する場合
+        automake  recpt1をビルドする場合
+        autoconf  recpt1をビルドする場合
+        を追加する
+
+        ソースファイルをイメージ内にコピーする
+        例１：イメージ内でlibarib25 をビルドし /usr/local/lib に配置し
+           recfsusb2nをビルドし /usr/local/bin に配置する場合
+          COPY ./tuner_app /tmp/tuner_app
+          RUN cd /tmp/tuner_app/libarib25 && make -f Make_lib && make -f Make_lib install \
+              cd /tmp/tuner_app/recfsusb2n/src && make [オプション] && make install
+        例２：gitでイメージ内にソースファイルを取得しビルドする場合
+          RUN mkdir /tmp/tuner_app &&  cd /tmp/tuner_app && \
+              git clone https://github.com/AngieKawai-4649/libarib25.git && cd libarib25/src && \
+              make -f Make_lib && make -f Make_lib install && \
+              cd /tmp/tuner_app && \
+              git clone https://github.com/AngieKawai-4649/recfsusb2n.git && cd recfsusb2n/src && \
+              make [オプション] && make [オプション] install
+        
+              
+              
+          
+          
+ 
+        
+        
