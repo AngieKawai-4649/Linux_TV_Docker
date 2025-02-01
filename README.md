@@ -215,12 +215,12 @@ LinuxでTVを視聴／録画する為に以下のイメージを作成する
         autoconf  recpt1をビルドする場合
         を追加する
 
-        ソースファイルをイメージ内にコピーする
-        例１：イメージ内でlibarib25 をビルドし /usr/local/lib に配置し
-           recfsusb2nをビルドし /usr/local/bin に配置する場合
-          COPY ./tuner_app /tmp/tuner_app
-          RUN cd /tmp/tuner_app/libarib25 && make -f Make_lib && make -f Make_lib install \
-              cd /tmp/tuner_app/recfsusb2n/src && make [オプション] && make install
+        ソースファイルをイメージ内に取り込む
+        例１：イメージ内にソースファイルをコピーしてlibarib25 をビルド /usr/local/lib に配置
+             recfsusb2nをビルド /usr/local/bin に配置する場合
+               COPY ./tuner_app /tmp/tuner_app
+               RUN cd /tmp/tuner_app/libarib25 && make -f Make_lib && make -f Make_lib install && \
+                   cd /tmp/tuner_app/recfsusb2n/src && make [オプション] && make install
         例２：gitでイメージ内にソースファイルを取得しビルドする場合
           RUN mkdir /tmp/tuner_app &&  cd /tmp/tuner_app && \
               git clone https://github.com/AngieKawai-4649/libarib25.git && cd libarib25/src && \
