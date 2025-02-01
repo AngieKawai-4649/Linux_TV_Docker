@@ -37,3 +37,42 @@ Docker上で動くプロセスはホストOSカーネル下で動くので動作
         または
             $ echo  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu" $(if [ `lsb_release -is` = "Ubuntu" ];then echo $(lsb_release -cs); else  echo $(. /etc/os-release && echo $UBUNTU_CODENAME);fi) "stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
+    5. dockerインストール
+    5.1 最新版
+        $ sudo apt update
+        $ sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+    5.2 バージョンを指定したインストール
+        $ apt-cache madison docker-ce
+        例 5:20.10.13~3-0~ubuntu-jammyをインストール
+        $ sudo apt install docker-ce=5:20.10.13~3-0~ubuntu-jammy docker-ce-cli=5:20.10.13~3-0~ubuntu-jammy containerd.io docker-compose-plugin
+    6. バージョン確認
+        $ sudo docker -v
+    7. ユーザーがdockerを使用できるようにdockerグループに追加
+        $ sudo gpasswd -a user-name docker
+    8. 動作確認
+        $ docker run hello-world
+    9. docker compose
+        docker composeはdocker-compose-pluginパッケージをインストールするとdockerのサブコマンドとして使えるようになっている
+        $ docker compose version
+    10. docker image保存先を外部ストレージに変更
+        docker サービス停止
+            $ sudo systemctl stop docker
+            $ sudo systemctl stop docker.socket
+        ファイルコピー
+        例 /opt/docker に変更する
+            $ sudo cp -ar /var/lib/docker /opt
+        サービスファイルの編集
+       /lib/systemd/system/docker.service
+        変更前
+            ExecStart=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+        変更後
+             Docker Engine 23.0未満
+               ExecStart=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock -g /opt/docker
+             Docker Engine 23.0以降
+               ExecStart=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock --data-root /opt/docker
+        サービス再起動
+            $ sudo systemctl daemon-reload
+            $ sudo systemctl start docker
+         確認
+            $ docker info | grep "Docker Root Dir"
+
