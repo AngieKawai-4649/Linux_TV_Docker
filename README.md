@@ -99,57 +99,55 @@ LinuxでTVを視聴／録画する為に以下のイメージを作成する
             |--/conf          configファイル格納
             |--/mariadb_data  データベースデータ
 
-1.1 Dockerファイルの作成
-    conf ディレクトリに文字セットutfmb4を組み込んだ50-server.cnf, 50-client.cnf を配置する
-    docker mariadb root ディレクトリにDockerfile_mariadb を作成する
-    1.4でコンテナ起動する場合はdocker-compose.ymlを作成する
+    1.1 Dockerファイルの作成
+        conf ディレクトリに文字セットutfmb4を組み込んだ50-server.cnf, 50-client.cnf を配置する
+        docker mariadb root ディレクトリにDockerfile_mariadb を作成する
+        1.4でコンテナ起動する場合はdocker-compose.ymlを作成する
 
     [Dockerfile_mariadb 内容例]
-　　　　FROM mariadb:10.11.8
+      FROM mariadb:10.11.8
+      RUN apt-get update && \
+      apt-get upgrade -y
+      #COPY ./db/conf/mariadb.cnf /etc/mysql/mariadb.cnf
+      COPY ./db/conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
+      COPY ./db/conf/50-client.cnf /etc/mysql/mariadb.conf.d/50-client.cnf
 
-　　　　RUN apt-get update && \
-　　　　apt-get upgrade -y
+    1.2 Dockerイメージの作成
+        $ cd /opt/TV_app/docker/mariadb
+        $ docker image build -t mariadb:10.11.8.mod -f Dockerfile_mariadb .
+          -t TAGを指定 上記例ではRIPOSITORY mariadb TAG 10.11.8.mod となる
+          -f Dockerファイル名を指定
 
-　　　　#COPY ./db/conf/mariadb.cnf /etc/mysql/mariadb.cnf
-　　　　COPY ./db/conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
-　　　　COPY ./db/conf/50-client.cnf /etc/mysql/mariadb.conf.d/50-client.cnf
+    1.3 確認
+        $ docker image ls
 
-1.2 Dockerイメージの作成
-       $ cd /opt/TV_app/docker/mariadb
-       $ docker image build -t mariadb:10.11.8.mod -f Dockerfile_mariadb .
-       -t TAGを指定 上記例ではRIPOSITORY mariadb TAG 10.11.8.mod となる
-       -f Dockerファイル名を指定
+    以下は任意
 
-1.3 確認
-      $ docker image ls
+    1.4 コンテナ起動
+        $ docker run -e MYSQL_ROOT_PASSWORD=root mariadb:10.11.8.mod
+          (-eは環境変数の設定、起動するリポジトリ名:タグ  またはイメージIDを指定)
+        docker-compose.ymlを使用する場合は
+          $ cd /opt/TV_app/docker/mariadb
+          $ docker compose up -d
 
-以下は任意
-
-1.4 コンテナ起動
-    $ docker run -e MYSQL_ROOT_PASSWORD=root mariadb:10.11.8.mod
-      (-eは環境変数の設定、起動するリポジトリ名:タグ  またはイメージIDを指定)
-    docker-compose.ymlを使用する場合は
-    $ cd /opt/TV_app/docker/mariadb
-    $ docker compose up -d
-
-    [docker-compose.yml 内容例]
-      version: '3'
-      services:
-          mariadb:
-              image: mariadb:10.11.8.mod
-              container_name: mariadb
-              ports:
-                  - "7777:3306"
-              volumes:
-                  - ./db/mariadb_data:/var/lib/mysql
-#             restart: always
-              environment:
-                  MYSQL_ROOT_PASSWORD: root
-                  TZ: "Asia/Tokyo"
-#             command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --performance-schema=false --expire_logs_days=1 # for mariadb
-      volumes:
-          mariadb_data:
-          driver: local
+        [docker-compose.yml 内容例]
+        version: '3'
+        services:
+            mariadb:
+                image: mariadb:10.11.8.mod
+                container_name: mariadb
+                ports:
+                    - "7777:3306"
+                volumes:
+                    - ./db/mariadb_data:/var/lib/mysql
+        #       restart: always
+                environment:
+                    MYSQL_ROOT_PASSWORD: root
+                    TZ: "Asia/Tokyo"
+        #       command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --performance-schema=false --expire_logs_days=1 # for mariadb
+        volumes:
+            mariadb_data:
+            driver: local
 
 
 
