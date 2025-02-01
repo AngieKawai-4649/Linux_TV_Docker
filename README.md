@@ -180,4 +180,15 @@ LinuxでTVを視聴／録画する為に以下のイメージを作成する
         コンテナを削除した時はデータベースデータを全て削除する
         また、他のコンテナで起動する場合もデータベースデータを全て削除しておく
 
-
+    2. mirakurun
+      mirakurun公式イメージをベースに各録画アプリ、ライブラリをビルドしセットアップする
+      ディレクトリ構成
+      /Mirakurun          root
+          |--docker       dockerファイル等
+          |--tuner_app    チューナーアプリ、softcas ソースコード
+          |--bind
+               |--run      /var/runにbind
+               |--opt      /optにbind
+               |--config   /app-configにbind
+               |--data     /app-dataにbind
+       
