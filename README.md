@@ -149,31 +149,29 @@ LinuxでTVを視聴／録画する為に以下のイメージを作成する
             mariadb_data:
             driver: local
 
-
-
-1.5 コンテナにログイン
-     コンテナ起動中にホスト側ターミナルでmariadbにログオンする
-     コンテナにログイン
-      $ docker exec -it コンテナID bash
-        (-i:入力をホストと共有 -t:出力をホストと共有) 
-    DBにログオン
-      # mysql -u root -p
-       文字セットの確認
-        MariaDB [(none)]> show variables like "chara%";
-1.6 コンテナの停止/削除
-    $ docker stop コンテナID
-    $ docker rm コンテナID
-1.7 ホストとポートマッピングして起動
-    ホスト側でmariadbをデフォルトポート(3306)で起動しているとポートがかち合ってしまうので
-    ポートマッピングして起動する
-    $ docker run -e MYSQL_ROOT_PASSWORD=root -p 7777:3306 mariadb:10.6
-     (7777:ホスト側のポート 3306:コンテナ側のポート）
-1.8 ホストからDocker mariadbにログオン
-    $ mysql -P 7777 -u root -p
-    文字セットの確認
-    MariaDB [(none)]> show variables like "chara%";
-1.9 データベースデータの削除
-    コンテナを削除した時はデータベースデータを全て削除する
-    また、他のコンテナで起動する場合もデータベースデータを全て削除しておく
+    1.5 コンテナにログイン
+        コンテナ起動中にホスト側ターミナルでmariadbにログオンする
+        コンテナにログイン
+        $ docker exec -it コンテナID bash
+          (-i:入力をホストと共有 -t:出力をホストと共有) 
+        DBにログオン
+          # mysql -u root -p
+          文字セットの確認
+            MariaDB [(none)]> show variables like "chara%";
+    1.6 コンテナの停止/削除
+        $ docker stop コンテナID
+        $ docker rm コンテナID
+    1.7 ホストとポートマッピングして起動
+        ホスト側でmariadbをデフォルトポート(3306)で起動しているとポートがかち合ってしまうので
+        ポートマッピングして起動する
+        $ docker run -e MYSQL_ROOT_PASSWORD=root -p 7777:3306 mariadb:10.6
+          (7777:ホスト側のポート 3306:コンテナ側のポート）
+    1.8 ホストからDocker mariadbにログオン
+        $ mysql -P 7777 -u root -p
+          文字セットの確認
+            MariaDB [(none)]> show variables like "chara%";
+    1.9 データベースデータの削除
+        コンテナを削除した時はデータベースデータを全て削除する
+        また、他のコンテナで起動する場合もデータベースデータを全て削除しておく
 
 
