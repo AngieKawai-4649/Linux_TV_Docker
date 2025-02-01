@@ -193,10 +193,12 @@ LinuxでTVを視聴／録画する為に以下のイメージを作成する
                |--data     /app-dataにbind
 
     2.1 ソースファイル等環境取得
-        $ cd /opt/TV_app/docker
+        $ cd /opt/TV_app/docker/
         $ git clone https://github.com/Chinachu/Mirakurun.git
     2.1 イメージ内でbuildする為、ソースファイルを取得
-        $ cd /opt/TV_app/tuner_app
+        $ cd /opt/TV_app/docker/Mirakurun
+        $ mkdir TV_app
+        $ cd TV_app
          [B25デコーダー arib25]
            $ git clone https://github.com/AngieKawai-4649/libarib25.git
          [慶安 KTV-FSUSB2 2期 recfsusb2n]
