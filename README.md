@@ -94,10 +94,10 @@ LinuxでTVを視聴／録画する為に以下のイメージを作成する
     1. mariadb
       公式イメージをベースとして文字セットをutfmb4を組み込んだオリジナルイメージを作成する
       ディレクトリ構成
-        /mariadb              docker mariadb root
+        /mariadb                  docker mariadb root
             |--/db
-            |--/conf          configファイル格納
-            |--/mariadb_data  データベースデータ
+                |--/conf          configファイル格納
+                |--/mariadb_data  データベースデータ
 
     1.1 Dockerファイルの作成
         conf ディレクトリに文字セットutfmb4を組み込んだ50-server.cnf, 50-client.cnf を配置する
