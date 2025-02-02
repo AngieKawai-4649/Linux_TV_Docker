@@ -232,10 +232,28 @@ LinuxでTVを視聴／録画する為に以下のイメージを作成する
                    cd /tmp/tuner_app && \
                    git clone https://github.com/AngieKawai-4649/recfsusb2n.git && cd recfsusb2n/src && \
                    make [オプション] && make [オプション] install
-        
-              
-              
-          
+
+    2.3 container-init.sh編集
+        container-init.shはmirakurunコンテナ実行時に読み込まれる定義ファイルである
+        自分の環境に合わせて環境変数の追加、不必要な機能を削除等編集する
+        例：bscs_ch.confを/app-configに置く場合
+            export BSCSCHPATH=/app-config を追記する
+
+    2.4 bindするホスト側のディレクトリの作成
+        $ cd /opt/TV_app/docker/Mirakurun
+        $ mkdir bind
+        $ cd bind
+        $ mkdir run opt config data
+
+    2.5 TV-tuner device 設定
+        recfsusb2n recsanpakun recdvb README 参照
+
+    2.6 Dockerイメージの作成
+        2.2で自分の環境に合わせて作成したDockerfileを使用してmirakurunイメージをベースに録画アプリを組み込んだオリジナルイメージを作成する
+        $ cd /opt/TV_app/docker/Mirakurun
+        $ docker image build -t mirakurun:3.9.0-rc.4.mod -f docker/Dockerfile_mirakurun .
+
+    
           
  
         
