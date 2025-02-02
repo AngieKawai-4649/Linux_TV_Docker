@@ -330,8 +330,50 @@ LinuxでTVを視聴／録画する為に以下のイメージを作成する
         コンテナ手動起動
         $ docker start $(docker ps -aq)
 
+## 【よく使うDockerコマンド一覧】
 
+    1.イメージ関連
+    1.1 イメージ一覧
+        $ docker images または docker image ls
+    1.2 イメージ削除
+        $ docker rmi イメージID または docker image rm イメージID または docker image rm repository:tag
+        image has dependent child images と表示され削除できない時は
+          $ docker image rm repository:tag または docker image rm -f repository:tag
+        dangling image (<none>) を一括削除
+          $ docker rmi $(docker images -f 'dangling=true' -q)
+    1.3 イメージ全削除
+        docker rmi $(docker images -q)
+    1.4 イメージ情報取得
+        $ docker image inspect イメージID
 
-
-
+    2. コンテナ関連
+    2.1 稼働確認
+         $ docker ps
+    2.2 コンテナ一覧
+         $ docker ps -a または docker container ls
+    2.3 コンテナ削除
+         $ docker rm コンテナID または docker container rm コンテナID
+    2.4 コンテナ全削除
+         $ docker rm $(docker ps -aq)
+    2.5 イメージ、コンテナ、ネットワークを全削除
+         $ docker system prune
+         volumeも削除する場合は
+           $ docker system prune --volumes
+    2.6 コンテナ起動
+         $ docker start コンテナID
+    2.7 コンテナ停止
+         $ docker stop コンテナID
+    2.8 稼働しているコンテナにログイン
+         $ docker exec -it コンテナID bash
+    2.9 ファイルコピー（ホスト-->コンテナ）
+         $ docker cp コピー元  コンテナID:コピー先
+    2.10 ファイルコピー（コンテナ-->ホスト）
+         $ docker cp コンテナID:コピー元  コピー先
+    2.11 コンテナ情報取得
+         $ docker inspect コンテナID
+           例:IPアドレス確認
+             $ docker inspect コンテナID | grep IPAddress
+    2.12 build cache の削除
+         $ docker system df  で確認
+         $ docker builder prune  で削除
 
