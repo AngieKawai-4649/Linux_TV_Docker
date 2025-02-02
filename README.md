@@ -253,8 +253,85 @@ LinuxでTVを視聴／録画する為に以下のイメージを作成する
         $ cd /opt/TV_app/docker/Mirakurun
         $ docker image build -t mirakurun:3.9.0-rc.4.mod -f docker/Dockerfile_mirakurun .
 
-    
-          
+    2.7 コンテナ起動（任意）
+        自分の環境に合わせて作成したdocker-compose_mirakurun.ymlを使用してコンテナを起動する
+        Mirakurun/ディレクトリで
+        $ docker compose -f docker/docker-compose_mirakurun.yml run --rm --service-ports mirakurun
+           up は通常起動 docker-compose.yml-->restart: always設定時にエラー終了時にコンテナをリトライ起動する
+           run はリトライしないのでテストでショット起動する際に行うコマンド
+           --rm コンテナ停止時にコンテナを保存しない
+        確認
+          smplayer,vlc等で
+          NHK総合(東京)
+            http://localhost:40772/api/channels/GR/27/services/1024/stream
+          NHKBS1
+            http://localhost:40772/api/channels/BS/BS15_0/stream
+          が視聴できるか確認する
+          mirakurun チャンネルスキャンでも確認可能
+          curl -X PUT "http://localhost:40772/api/config/channels/scan"
+
+    3. EPGStation
+       ダウンロードしたEPGStation Dockerfileをそのまま使用してイメージを作成する
+       ディレクトリ構成
+       /docker-mirakurun-epgstation       docker compose root
+                   |--epgstation          epgstation root
+                           |--config      /app/config    に bind
+                           |--data        /app/data      に bind
+                           |--thumbnail   /app/thumbnail に bin
+                           |--logs        /app/logsにbindに bind
+                           |--recorded    /app/recorded  に bind
  
-        
-        
+    3.1 docker-mirakurun-epgstationの入手
+        $ cd /opt/TV_app/docker
+        $ git clone https://github.com/l3tnun/docker-mirakurun-epgstation.git
+
+    3.2 イメージの作成
+        $ cd /opt/TV_app/docker/docker-mirakurun-epgstation/epgstation
+        $ docker image build -t epgstation:2.10.0 -f debian.Dockerfile .
+        または
+        $ docker image build -t epgstation:2.10.0 -f alpine.Dockerfile .
+        ※これらのDockerfileは作者の作成したベースイメージを取り込みffmpeg ver7.0をbuildしている
+          EPGStation ソースファイル他を取得して自分でDockerfileを作成しイメージを作ることも可能
+          $ git clone https://github.com/l3tnun/EPGStation.git
+          ソースプログラムをイメージに転送してビルドする
+
+    3.3 docker-compose.yml の編集
+        /opt/TV_app/docker/docker-mirakurun-epgstation/docker-compose-sample.ymlをベースに自分の環境に合わせて
+        bindするデバイス、ディレクトリ等を編集する
+        このdocker-compose.ymlは
+        mirakurun
+        mariadb
+        epgstation
+        ３つのコンテナを起動する
+
+    3.4 コンテナ起動
+        テスト用に起動したコンテナを削除する
+        コンテナIDを調べる
+        $ docker ps -a
+        $ docker rm コンテナID　または  docker container rm コンテナID
+        $ cd /opt/TV_app/docker/docker-mirakurun-epgstation
+        $ docker compose up -d
+          up:なければコンテナを作成する
+          -d:デタッチモード（バックグラウンド起動）
+             初めは-dを付けずに起動し標準出力されたmirakurun,EPGStationのログで稼働確認
+
+    3.5 ディレクトリ構成について    
+        Dockerfileからイメージを作成する場合、dockerコマンドを実行するカレントディレクトリ配下しか参照出来ない
+        よってカレントディレクトリより上位ディレクトリにソースファイルを置きイメージにコピーすることは出来ない
+        docker-compose.ymlではvolumeのディレクトリ等に上記制約は無いので自由に設定可能
+        volumeの配置をカスタマイズした場合はdocker-compose.ymlを修正する
+
+    3.6 自動起動について
+        dokcer デーモン起動時にコンテナを自動起動する場合は
+        docker-mirakurun-epgstation/docker-compose.ymlの
+        mirakurun mariadb EPGStation の3つのコンテナのrestart: always のコメントを外しコンテナを作り直す
+        コンテナが自動起動かチェック
+        $ docker inspect -f "{{.Name}} {{.HostConfig.RestartPolicy.Name}}" $(docker ps -aq) 
+        コンテナ手動起動
+        $ docker start $(docker ps -aq)
+
+
+
+
+
+
