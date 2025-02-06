@@ -1,0 +1,8 @@
+FROM mariadb:10.11.8
+
+RUN apt-get update && \
+apt-get upgrade -y
+
+#COPY ./db/conf/mariadb.cnf /etc/mysql/mariadb.cnf
+COPY ./db/conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
+COPY ./db/conf/50-client.cnf /etc/mysql/mariadb.conf.d/50-client.cnf

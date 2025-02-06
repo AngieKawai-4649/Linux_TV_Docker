@@ -1,0 +1,81 @@
+services:
+    mirakurun:
+        image: mirakurun:3.9.0-rc.4.mod
+        container_name: Mirakurun
+        cap_add:
+            - SYS_ADMIN
+            - SYS_NICE
+        ports:
+            - "40772:40772"
+            - "9229:9229"
+        volumes:
+            - ../Mirakurun/bind/run/:/var/run/
+            - ../Mirakurun/bind/opt/:/opt/
+            - ../Mirakurun/bind/config/:/app-config/
+            - ../Mirakurun/bind/data/:/app-data/
+        environment:
+            TZ: "Asia/Tokyo"
+        devices:
+            - /dev/bus:/dev/bus
+            - /dev/FSUSB2N_1:/dev/FSUSB2N_1
+            - /dev/FSUSB2N_2:/dev/FSUSB2N_2
+            - /dev/SANPAKUN_1:/dev/SANPAKUN_1
+            - /dev/SANPAKUN_2:/dev/SANPAKUN_2
+#        restart: always
+        logging:
+            driver: json-file
+            options:
+                max-file: "1"
+                max-size: 10m
+
+    mysql:
+        image: mariadb:10.11.8.mod
+        container_name: mariadb
+        ports:
+            - "7777:3306"
+        volumes:
+            - ../mariadb/db/mariadb_data:/var/lib/mysql
+        environment:
+            MYSQL_USER: epgstation
+            MYSQL_PASSWORD: epgstation
+            MYSQL_ROOT_PASSWORD: epgstation
+            MYSQL_DATABASE: epgstation_db
+            TZ: "Asia/Tokyo"
+        command: --performance-schema=false --expire_logs_days=1 # for mariadb
+        # command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --performance-schema=false --expire_logs_days=1 # for mariadb
+        # command: --character-set-server=utf8mb4 --collation-server=utf8mb4_0900_as_ci --performance-schema=false --expire_logs_days=1 --default-authentication-plugin=mysql_native_password # for myql
+#        restart: always
+        logging:
+            options:
+                max-size: "10m"
+                max-file: "3"
+
+    epgstation:
+        image: epgstation:2.10.0
+        container_name: EPGStation
+        build:
+            context: "./epgstation"
+            dockerfile: "debian.Dockerfile"
+        volumes:
+            - ./epgstation/config:/app/config
+            - ./epgstation/data:/app/data
+            - ./epgstation/thumbnail:/app/thumbnail
+            - ./epgstation/logs:/app/logs
+            - ./recorded:/app/recorded
+        environment:
+            TZ: "Asia/Tokyo"
+        depends_on:
+            - mirakurun
+            - mysql
+        ports:
+            - "8888:8888"
+            - "8889:8889"
+#         user: "1000:1000"
+#         devices:
+#             - /dev/dri:/dev/dri
+#        restart: always
+
+volumes:
+    mariadb_data:
+        driver: local
+
