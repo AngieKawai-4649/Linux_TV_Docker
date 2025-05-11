@@ -1,0 +1,192 @@
+#EXTINF:-1, ＮＨＫ総合１・東京
+http://192.168.1.5:40772/api/channels/GR/UHF_27/services/1024/stream
+#EXTINF:-1, ＮＨＫ総合２・東京
+http://192.168.1.5:40772/api/channels/GR/UHF_27/services/1025/stream
+#EXTINF:-1, ＮＨＫＥテレ１東京
+http://192.168.1.5:40772/api/channels/GR/UHF_26/services/1032/stream
+#EXTINF:-1, 日テレ１
+http://192.168.1.5:40772/api/channels/GR/UHF_25/services/1040/stream
+#EXTINF:-1, ＴＢＳ１
+http://192.168.1.5:40772/api/channels/GR/UHF_22/services/1048/stream
+#EXTINF:-1, フジテレビ
+http://192.168.1.5:40772/api/channels/GR/UHF_21/services/1056/stream
+#EXTINF:-1, テレビ朝日
+http://192.168.1.5:40772/api/channels/GR/UHF_24/services/1064/stream
+#EXTINF:-1, テレ東
+http://192.168.1.5:40772/api/channels/GR/UHF_23/services/1072/stream
+#EXTINF:-1, ＮＨＫ携帯Ｇ・東京
+http://192.168.1.5:40772/api/channels/GR/UHF_27/services/1408/stream
+#EXTINF:-1, ＴＯＫＹＯ　ＭＸ１
+http://192.168.1.5:40772/api/channels/GR/UHF_16/services/23608/stream
+#EXTINF:-1, ＴＯＫＹＯ　ＭＸ２
+http://192.168.1.5:40772/api/channels/GR/UHF_16/services/23610/stream
+#EXTINF:-1, ｔｖｋ１
+http://192.168.1.5:40772/api/channels/GR/UHF_18/services/24632/stream
+#EXTINF:-1, NHK BS1
+http://192.168.1.5:40772/api/channels/BS/BS_15_0/services/101/stream
+#EXTINF:-1, NHK BS1(Sub)
+http://192.168.1.5:40772/api/channels/BS/BS_15_0/services/102/stream
+#EXTINF:-1, BS日テレ
+http://192.168.1.5:40772/api/channels/BS/BS_13_0/services/141/stream
+#EXTINF:-1, BS日テレ(Sub)
+http://192.168.1.5:40772/api/channels/BS/BS_13_0/services/142/stream
+#EXTINF:-1, BS朝日
+http://192.168.1.5:40772/api/channels/BS/BS_1_0/services/151/stream
+#EXTINF:-1, BS朝日(Sub)
+http://192.168.1.5:40772/api/channels/BS/BS_1_0/services/152/stream
+#EXTINF:-1, BS-TBS
+http://192.168.1.5:40772/api/channels/BS/BS_1_1/services/161/stream
+#EXTINF:-1, BSテレ東
+http://192.168.1.5:40772/api/channels/BS/BS_1_2/services/171/stream
+#EXTINF:-1, BSフジ
+http://192.168.1.5:40772/api/channels/BS/BS_13_1/services/181/stream
+#EXTINF:-1, WOWOWプライム
+http://192.168.1.5:40772/api/channels/BS/BS_3_0/services/191/stream
+#EXTINF:-1, WOWOWライブ
+http://192.168.1.5:40772/api/channels/BS/BS_5_0/services/192/stream
+#EXTINF:-1, WOWOWシネマ
+http://192.168.1.5:40772/api/channels/BS/BS_5_1/services/193/stream
+#EXTINF:-1, BS10
+http://192.168.1.5:40772/api/channels/BS/BS_15_2/services/200/stream
+#EXTINF:-1, BS10 スターチャンネル
+http://192.168.1.5:40772/api/channels/BS/BS_15_1/services/201/stream
+#EXTINF:-1, BS11
+http://192.168.1.5:40772/api/channels/BS/BS_9_0/services/211/stream
+#EXTINF:-1, Twellv
+http://192.168.1.5:40772/api/channels/BS/BS_9_1/services/222/stream
+#EXTINF:-1, 放送大学231
+http://192.168.1.5:40772/api/channels/BS/BS_13_2/services/231/stream
+#EXTINF:-1, 放送大学232
+http://192.168.1.5:40772/api/channels/BS/BS_13_2/services/232/stream
+#EXTINF:-1, グリーンチャンネル
+http://192.168.1.5:40772/api/channels/BS/BS_21_2/services/234/stream
+#EXTINF:-1, BSアニマックス
+http://192.168.1.5:40772/api/channels/BS/BS_3_1/services/236/stream
+#EXTINF:-1, J SPORTS 1
+http://192.168.1.5:40772/api/channels/BS/BS_19_1/services/242/stream
+#EXTINF:-1, J SPORTS 2
+http://192.168.1.5:40772/api/channels/BS/BS_19_2/services/243/stream
+#EXTINF:-1, J SPORTS 3
+http://192.168.1.5:40772/api/channels/BS/BS_19_3/services/244/stream
+#EXTINF:-1, J SPORTS 4
+http://192.168.1.5:40772/api/channels/BS/BS_19_0/services/245/stream
+#EXTINF:-1, BS釣りビジョン
+http://192.168.1.5:40772/api/channels/BS/BS_3_2/services/251/stream
+#EXTINF:-1, WOWOWプラス
+http://192.168.1.5:40772/api/channels/BS/BS_21_0/services/252/stream
+#EXTINF:-1, 日本映画専門チャンネル
+http://192.168.1.5:40772/api/channels/BS/BS_21_1/services/255/stream
+#EXTINF:-1, ディズニー・チャンネル
+http://192.168.1.5:40772/api/channels/BS/BS_23_0/services/256/stream
+#EXTINF:-1, BS松竹東急
+http://192.168.1.5:40772/api/channels/BS/BS_23_2/services/260/stream
+#EXTINF:-1, BSよしもと
+http://192.168.1.5:40772/api/channels/BS/BS_23_1/services/265/stream
+#EXTINF:-1, ショップチャンネル
+http://192.168.1.5:40772/api/channels/CS/CS_8/services/55/stream
+#EXTINF:-1, ＱＶＣ
+http://192.168.1.5:40772/api/channels/CS/CS_22/services/161/stream
+#EXTINF:-1, 東映チャンネル
+http://192.168.1.5:40772/api/channels/CS/CS_8/services/218/stream
+#EXTINF:-1, 衛星劇場
+http://192.168.1.5:40772/api/channels/CS/CS_10/services/219/stream
+#EXTINF:-1, 映画・ｃｈＮＥＣＯ
+http://192.168.1.5:40772/api/channels/CS/CS_24/services/223/stream
+#EXTINF:-1, ザ・シネマ
+http://192.168.1.5:40772/api/channels/CS/CS_14/services/227/stream
+#EXTINF:-1, ムービープラス
+http://192.168.1.5:40772/api/channels/CS/CS_18/services/240/stream
+#EXTINF:-1, スカイＡ
+http://192.168.1.5:40772/api/channels/CS/CS_4/services/250/stream
+#EXTINF:-1, ＧＡＯＲＡ
+http://192.168.1.5:40772/api/channels/CS/CS_12/services/254/stream
+#EXTINF:-1, 日テレジータス
+http://192.168.1.5:40772/api/channels/CS/CS_24/services/257/stream
+#EXTINF:-1, ゴルフネットワーク
+http://192.168.1.5:40772/api/channels/CS/CS_18/services/262/stream
+#EXTINF:-1, ＳＫＹ　ＳＴＡＧＥ
+http://192.168.1.5:40772/api/channels/CS/CS_16/services/290/stream
+#EXTINF:-1, 時代劇専門ｃｈ
+http://192.168.1.5:40772/api/channels/CS/CS_4/services/292/stream
+#EXTINF:-1, ファミリー劇場
+http://192.168.1.5:40772/api/channels/CS/CS_14/services/293/stream
+#EXTINF:-1, ホームドラマＣＨ
+http://192.168.1.5:40772/api/channels/CS/CS_6/services/294/stream
+#EXTINF:-1, ＭＯＮＤＯ　ＴＶ
+http://192.168.1.5:40772/api/channels/CS/CS_24/services/295/stream
+#EXTINF:-1, ＴＢＳチャンネル１
+http://192.168.1.5:40772/api/channels/CS/CS_2/services/296/stream
+#EXTINF:-1, ＴＢＳチャンネル２
+http://192.168.1.5:40772/api/channels/CS/CS_22/services/297/stream
+#EXTINF:-1, テレ朝チャンネル１
+http://192.168.1.5:40772/api/channels/CS/CS_2/services/298/stream
+#EXTINF:-1, テレ朝チャンネル２
+http://192.168.1.5:40772/api/channels/CS/CS_2/services/299/stream
+#EXTINF:-1, 日テレプラス
+http://192.168.1.5:40772/api/channels/CS/CS_24/services/300/stream
+#EXTINF:-1, エンタメ～テレ
+http://192.168.1.5:40772/api/channels/CS/CS_4/services/301/stream
+#EXTINF:-1, 銀河◆歴ドラ・サスペ
+http://192.168.1.5:40772/api/channels/CS/CS_18/services/305/stream
+#EXTINF:-1, フジテレビＯＮＥ
+http://192.168.1.5:40772/api/channels/CS/CS_20/services/307/stream
+#EXTINF:-1, フジテレビＴＷＯ
+http://192.168.1.5:40772/api/channels/CS/CS_20/services/308/stream
+#EXTINF:-1, フジテレビＮＥＸＴ
+http://192.168.1.5:40772/api/channels/CS/CS_20/services/309/stream
+#EXTINF:-1, スーパー！ドラマＴＶ
+http://192.168.1.5:40772/api/channels/CS/CS_14/services/310/stream
+#EXTINF:-1, アクションチャンネル
+http://192.168.1.5:40772/api/channels/CS/CS_16/services/311/stream
+#EXTINF:-1, Ｄｌｉｆｅ
+http://192.168.1.5:40772/api/channels/CS/CS_22/services/312/stream
+#EXTINF:-1, 女性ｃｈ／ＬａＬａ
+http://192.168.1.5:40772/api/channels/CS/CS_18/services/314/stream
+#EXTINF:-1, ミステリーチャンネル
+http://192.168.1.5:40772/api/channels/CS/CS_16/services/316/stream
+#EXTINF:-1, ＫＢＳ　Ｗｏｒｌｄ
+http://192.168.1.5:40772/api/channels/CS/CS_10/services/317/stream
+#EXTINF:-1, Ｍｎｅｔ
+http://192.168.1.5:40772/api/channels/CS/CS_8/services/318/stream
+#EXTINF:-1, スペシャプラス
+http://192.168.1.5:40772/api/channels/CS/CS_16/services/321/stream
+#EXTINF:-1, スペースシャワーＴＶ
+http://192.168.1.5:40772/api/channels/CS/CS_20/services/322/stream
+#EXTINF:-1, ＭＴＶ
+http://192.168.1.5:40772/api/channels/CS/CS_4/services/323/stream
+#EXTINF:-1, ミュージック・エア
+http://192.168.1.5:40772/api/channels/CS/CS_6/services/324/stream
+#EXTINF:-1, エムオン！
+http://192.168.1.5:40772/api/channels/CS/CS_12/services/325/stream
+#EXTINF:-1, 歌謡ポップス
+http://192.168.1.5:40772/api/channels/CS/CS_6/services/329/stream
+#EXTINF:-1, キッズステーション
+http://192.168.1.5:40772/api/channels/CS/CS_12/services/330/stream
+#EXTINF:-1, カートゥーン
+http://192.168.1.5:40772/api/channels/CS/CS_6/services/331/stream
+#EXTINF:-1, ＡＴ－Ｘ
+http://192.168.1.5:40772/api/channels/CS/CS_16/services/333/stream
+#EXTINF:-1, ディズニージュニア
+http://192.168.1.5:40772/api/channels/CS/CS_2/services/339/stream
+#EXTINF:-1, ディスカバリー
+http://192.168.1.5:40772/api/channels/CS/CS_6/services/340/stream
+#EXTINF:-1, アニマルプラネット
+http://192.168.1.5:40772/api/channels/CS/CS_6/services/341/stream
+#EXTINF:-1, ヒストリーチャンネル
+http://192.168.1.5:40772/api/channels/CS/CS_14/services/342/stream
+#EXTINF:-1, ナショジオ
+http://192.168.1.5:40772/api/channels/CS/CS_12/services/343/stream
+#EXTINF:-1, 日テレＮＥＷＳ２４
+http://192.168.1.5:40772/api/channels/CS/CS_8/services/349/stream
+#EXTINF:-1, ＴＢＳ　ＮＥＷＳ
+http://192.168.1.5:40772/api/channels/CS/CS_22/services/351/stream
+#EXTINF:-1, ＢＢＣワールド
+http://192.168.1.5:40772/api/channels/CS/CS_16/services/353/stream
+#EXTINF:-1, ＣＮＮｊ
+http://192.168.1.5:40772/api/channels/CS/CS_6/services/354/stream
+#EXTINF:-1, 囲碁・将棋チャンネル
+http://192.168.1.5:40772/api/channels/CS/CS_6/services/363/stream
+#EXTINF:-1, スカサカ！
+http://192.168.1.5:40772/api/channels/CS/CS_10/services/800/stream
+#EXTINF:-1, スカチャン１
+http://192.168.1.5:40772/api/channels/CS/CS_10/services/801/stream
